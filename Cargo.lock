@@ -110,17 +110,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7943c866cc5cd64cbc25b2e01621d07fa8eb2a1a23160ee81ce38704e97b8ecf"
 
 [[package]]
+name = "laptop-support"
+version = "1.0.0"
+source = "git+https://github.com/petitstrawberry/laptop-support-library.git?branch=main#5ae89e432143e1ee10115149032d3afac031d6a9"
+
+[[package]]
 name = "laptop-support-cli"
 version = "0.1.0"
 dependencies = [
  "clap",
- "laptop-support-library",
+ "laptop-support",
 ]
-
-[[package]]
-name = "laptop-support-library"
-version = "1.0.0"
-source = "git+https://github.com/petitstrawberry/laptop-support-library.git?branch=main#152393b088d1e3a6b4c811b848487430762e552d"
 
 [[package]]
 name = "proc-macro2"
