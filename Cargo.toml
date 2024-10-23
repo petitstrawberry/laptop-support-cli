@@ -1,0 +1,9 @@
+[package]
+name = "laptop-support-cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.5.20", features = ["derive"] }
+laptop-support-library = { git = "https://github.com/petitstrawberry/laptop-support-library" }
+#laptop-support-library = { path = "../laptop-support-library" }
