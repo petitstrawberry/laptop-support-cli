@@ -120,7 +120,7 @@ dependencies = [
 [[package]]
 name = "laptop-support-library"
 version = "1.0.0"
-source = "git+https://github.com/petitstrawberry/laptop-support-library#2205b46cb40879d1c2afc014d8da7dc1b8dc2184"
+source = "git+https://github.com/petitstrawberry/laptop-support-library.git?branch=main#152393b088d1e3a6b4c811b848487430762e552d"
 
 [[package]]
 name = "proc-macro2"

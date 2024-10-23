@@ -1,7 +1,6 @@
 use clap::Parser;
 use clap::Subcommand;
-use laptop_support_library::*;
-use tabletmode::TabletMode;
+use laptop_support_library::laptop::Laptop;
 
 // Command line tool for laptop-support protocol
 #[derive(Parser, Debug)]
