@@ -25,10 +25,12 @@ enum TabletModeAction {
     Enable,
     #[command(about = "Disable tablet mode")]
     Disable,
-    #[command(about = "Enable auto detection of tablet mode")]
+    #[command(about = "Enable auto switch to tablet mode")]
     Auto,
-    #[command(about = "Disable auto detection of tablet mode")]
+    #[command(about = "Disable auto switch to tablet mode")]
     NoAuto,
+    #[command(about = "Get current tablet mode, auto switch status")]
+    Status,
 }
 
 fn main() {
@@ -48,6 +50,13 @@ fn main() {
             }
             TabletModeAction::NoAuto => {
                 laptop.tabletmode.disable_auto_detect().unwrap();
+            }
+            TabletModeAction::Status => {
+                let is_tabletmode = laptop.tabletmode.is_enabled().unwrap();
+                let is_auto = laptop.tabletmode.is_auto_detect_enabled().unwrap();
+
+                println!("Tablet mode: {}", is_tabletmode);
+                println!("Auto switch: {}", is_auto);
             }
         },
     }
