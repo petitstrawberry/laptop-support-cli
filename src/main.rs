@@ -1,63 +1,37 @@
+mod command;
+mod tabletmode;
+
 use clap::Parser;
 use clap::Subcommand;
+use command::CommandTrait;
 use laptop_support::laptop::Laptop;
+use tabletmode::TabletMode;
 
 // Command line tool for laptop-support protocol
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about=None)]
 struct Args {
     #[clap(subcommand)]
-    subcmd: Command,
+    subcmd: Commands,
 }
 
 #[derive(Subcommand, Debug)]
-enum Command {
+enum Commands {
     #[command(about = "Control tablet mode")]
-    Tabletmode {
-        #[clap(subcommand)]
-        action: TabletModeAction,
-    },
+    Tabletmode(TabletMode),
 }
 
-#[derive(Subcommand, Debug)]
-enum TabletModeAction {
-    #[command(about = "Enable tablet mode")]
-    Enable,
-    #[command(about = "Disable tablet mode")]
-    Disable,
-    #[command(about = "Enable auto switch to tablet mode")]
-    Auto,
-    #[command(about = "Disable auto switch to tablet mode")]
-    NoAuto,
-    #[command(about = "Get current tablet mode, auto switch status")]
-    Status,
+impl Commands {
+    fn execute(&self, laptop: &Laptop) {
+        match self {
+            Commands::Tabletmode(cmd) => cmd.execute(laptop),
+        }
+    }
 }
 
 fn main() {
     let args = Args::parse();
     let laptop = Laptop::new();
 
-    match args.subcmd {
-        Command::Tabletmode { action } => match action {
-            TabletModeAction::Enable => {
-                laptop.tabletmode.enable().unwrap();
-            }
-            TabletModeAction::Disable => {
-                laptop.tabletmode.disable().unwrap();
-            }
-            TabletModeAction::Auto => {
-                laptop.tabletmode.enable_auto_detect().unwrap();
-            }
-            TabletModeAction::NoAuto => {
-                laptop.tabletmode.disable_auto_detect().unwrap();
-            }
-            TabletModeAction::Status => {
-                let is_tabletmode = laptop.tabletmode.is_enabled().unwrap();
-                let is_auto = laptop.tabletmode.is_auto_detect_enabled().unwrap();
-
-                println!("Tablet mode: {}", is_tabletmode);
-                println!("Auto switch: {}", is_auto);
-            }
-        },
-    }
+    args.subcmd.execute(&laptop);
 }
