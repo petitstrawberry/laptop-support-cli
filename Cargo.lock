@@ -112,11 +112,11 @@ checksum = "7943c866cc5cd64cbc25b2e01621d07fa8eb2a1a23160ee81ce38704e97b8ecf"
 [[package]]
 name = "laptop-support"
 version = "1.0.0"
-source = "git+https://github.com/petitstrawberry/laptop-support-rs.git?branch=main#5ae89e432143e1ee10115149032d3afac031d6a9"
+source = "git+https://github.com/petitstrawberry/laptop-support-rs.git?rev=be9eaa695fded3ac97494ef20cf71475c0bf714d#be9eaa695fded3ac97494ef20cf71475c0bf714d"
 
 [[package]]
 name = "laptop-support-cli"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "clap",
  "laptop-support",
