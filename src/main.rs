@@ -1,6 +1,7 @@
 mod command;
 mod tabletmode;
 mod keyboard;
+mod mouse;
 
 use clap::Parser;
 use clap::Subcommand;
@@ -22,6 +23,8 @@ enum Commands {
     Tabletmode(TabletMode),
     #[command(about = "Control keyboard")]
     Keyboard(keyboard::Keyboard),
+    #[command(about = "Control mouse")]
+    Mouse(mouse::Mouse),
 }
 
 impl Commands {
@@ -29,6 +32,7 @@ impl Commands {
         match self {
             Commands::Tabletmode(cmd) => cmd.execute(laptop),
             Commands::Keyboard(cmd) => cmd.execute(laptop),
+            Commands::Mouse(cmd) => cmd.execute(laptop),
         }
     }
 }
