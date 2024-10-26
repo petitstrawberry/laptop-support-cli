@@ -1,6 +1,6 @@
 [package]
 name = "laptop-support-cli"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
 
 [[bin]]
@@ -9,5 +9,4 @@ path = "src/main.rs"
 
 [dependencies]
 clap = { version = "4.5.20", features = ["derive"] }
-laptop-support = { git = "https://github.com/petitstrawberry/laptop-support-rs.git", branch = "main" }
-#laptop-support = { path = "../laptop-support-rs" }
+laptop-support = { git = "https://github.com/petitstrawberry/laptop-support-rs.git", rev = "be9eaa695fded3ac97494ef20cf71475c0bf714d" }
