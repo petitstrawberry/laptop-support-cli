@@ -1,0 +1,19 @@
+name: Publish laptop-support-cli
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  aur:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: laptop-support-cli-git-aur dispatch
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PAT }}
+          repository: petitstrawberry/laptop-support-cli-git-aur
+          event-type: publish_to_aur
+          client-payload: '{"version": "${{ github.event.release.tag_name }}"}'

@@ -1,54 +1,45 @@
+mod command;
+mod tabletmode;
+mod keyboard;
+mod mouse;
+
 use clap::Parser;
 use clap::Subcommand;
+use command::CommandTrait;
 use laptop_support::laptop::Laptop;
+use tabletmode::TabletMode;
 
 // Command line tool for laptop-support protocol
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about=None)]
 struct Args {
     #[clap(subcommand)]
-    subcmd: Command,
+    subcmd: Commands,
 }
 
 #[derive(Subcommand, Debug)]
-enum Command {
+enum Commands {
     #[command(about = "Control tablet mode")]
-    Tabletmode {
-        #[clap(subcommand)]
-        action: TabletModeAction,
-    },
+    Tabletmode(TabletMode),
+    #[command(about = "Control keyboard")]
+    Keyboard(keyboard::Keyboard),
+    #[command(about = "Control mouse")]
+    Mouse(mouse::Mouse),
 }
 
-#[derive(Subcommand, Debug)]
-enum TabletModeAction {
-    #[command(about = "Enable tablet mode")]
-    Enable,
-    #[command(about = "Disable tablet mode")]
-    Disable,
-    #[command(about = "Enable auto detection of tablet mode")]
-    Auto,
-    #[command(about = "Disable auto detection of tablet mode")]
-    NoAuto,
+impl Commands {
+    fn execute(&self, laptop: &Laptop) {
+        match self {
+            Commands::Tabletmode(cmd) => cmd.execute(laptop),
+            Commands::Keyboard(cmd) => cmd.execute(laptop),
+            Commands::Mouse(cmd) => cmd.execute(laptop),
+        }
+    }
 }
 
 fn main() {
     let args = Args::parse();
     let laptop = Laptop::new();
 
-    match args.subcmd {
-        Command::Tabletmode { action } => match action {
-            TabletModeAction::Enable => {
-                laptop.tabletmode.enable().unwrap();
-            }
-            TabletModeAction::Disable => {
-                laptop.tabletmode.disable().unwrap();
-            }
-            TabletModeAction::Auto => {
-                laptop.tabletmode.enable_auto_detect().unwrap();
-            }
-            TabletModeAction::NoAuto => {
-                laptop.tabletmode.disable_auto_detect().unwrap();
-            }
-        },
-    }
+    args.subcmd.execute(&laptop);
 }
