@@ -19,7 +19,7 @@ pub enum TabletModeSubcommand {
 }
 
 impl TabletModeSubcommand {
-    pub fn run(&self, laptop: &Laptop) {
+    fn run(&self, laptop: &Laptop) {
         match self {
             TabletModeSubcommand::Enable => {
                 laptop.tabletmode.enable().unwrap();
