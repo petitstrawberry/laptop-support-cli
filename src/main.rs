@@ -1,5 +1,6 @@
 mod command;
 mod tabletmode;
+mod keyboard;
 
 use clap::Parser;
 use clap::Subcommand;
@@ -19,12 +20,15 @@ struct Args {
 enum Commands {
     #[command(about = "Control tablet mode")]
     Tabletmode(TabletMode),
+    #[command(about = "Control keyboard")]
+    Keyboard(keyboard::Keyboard),
 }
 
 impl Commands {
     fn execute(&self, laptop: &Laptop) {
         match self {
             Commands::Tabletmode(cmd) => cmd.execute(laptop),
+            Commands::Keyboard(cmd) => cmd.execute(laptop),
         }
     }
 }
