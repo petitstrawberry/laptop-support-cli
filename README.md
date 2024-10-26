@@ -26,12 +26,12 @@ Pre-installed `laptop-support` compatible service in your system.
 
 ## Installation
 
-### From AUR (Not Available Yet)
+### From AUR
 
 Recommended way for ArchLinux users.
 
 ```sh
-yay -S laptop-support-cli
+yay -S laptop-support-cli-git
 ```
 
 ### From Source
